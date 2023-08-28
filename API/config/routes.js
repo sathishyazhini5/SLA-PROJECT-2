@@ -37,6 +37,7 @@ let routes = (app) => {
 
   //enrollment
   router.post('/saveenroll',enroll_functions.enrollsave)
+  router.post('/getenroll',enroll_functions.getallenroll)
 
   app.use("/api", router);
 };

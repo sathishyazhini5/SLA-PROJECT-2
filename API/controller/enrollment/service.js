@@ -20,7 +20,23 @@ const enrollsave = async(data)=>
 }
 
 
+//getallenrollments
+const getenroll = async(data)=>
+{
+    try{
+
+        const en = await enrollSchema.find()
+        return en
+        
+    }catch(error)
+    {
+        return false
+    }
+}
+
+
 module.exports=
 {
-    enrollsave
+    enrollsave,
+    getenroll
 }

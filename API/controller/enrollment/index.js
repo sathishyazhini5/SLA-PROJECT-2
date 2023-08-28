@@ -1,3 +1,4 @@
+const { response } = require('express')
 const service = require('./service')
 
 //save-enroll
@@ -23,7 +24,20 @@ const enrollsave = async(req,res)=>
     }
 }
 
+//getenroll.
+const getallenroll = async(req,res)=>
+{
+    const gt = await service.getenroll()
+    res.send({
+        code:200,
+        status:true,
+        message:'all enrollments',
+        response:gt
+    })
+}
+
 module.exports=
 {
-    enrollsave
+    enrollsave,
+    getallenroll
 }
