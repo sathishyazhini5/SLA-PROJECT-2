@@ -1,4 +1,5 @@
 const registerschema = require('../../model/regschema')
+const validator = require('email-validator')
 
 //register user without repeatation of mob_no
 
@@ -43,9 +44,14 @@ const regagg = async(req,res)=>
         }
         else
         {
-            const newuser = new registerschema(data)
-            const saveuser = await newuser.save()
-            return saveuser
+            const validate = validator.validate(data.EmailID)
+            if(validate)
+            {
+                const newuser = new registerschema(data)
+                const saveuser = await newuser.save()
+                return saveuser
+            }
+            
         }
 
     }catch(error)

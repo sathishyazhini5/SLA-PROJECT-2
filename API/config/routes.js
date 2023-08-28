@@ -17,8 +17,7 @@ let routes = (app) => {
 
   //login
   router.post('/login',login_functions.lg)
-  router.post('/login2',login_functions.login2)
-  router.post('/login3',login_functions.lg3)
+  router.post('/login2',login_functions.lg2)
 
 
   app.use("/api", router);

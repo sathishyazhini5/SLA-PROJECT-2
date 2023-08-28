@@ -12,19 +12,31 @@ const reg = async(req,res)=>
     const hash_renterpassword = await bcrypt.hash(req.body.Reenter_Password,salt)
     req.body.Reenter_Password = hash_renterpassword
 
-    const save = await service.register(req.body)
-    if(save)
+   
+    const equalpassword = (req.body.Enter_Password==req.body.Reenter_Password)
+    if(!equalpassword)
     {
-    
+        res.send({
+            code:200,
+            status:true,
+            message:'mismatched reenter password',
+        })
+        
+    }
+    else
+    {
+        const save = await service.register(req.body)
+        if(save)
+        {
         res.send({
             code:200,
             status:true,
             message:'Registered Successfully',
             response:save
         })
-    }
-    else
-    {
+        }
+
+        
         res.send({
             code:400,
             status:false,

@@ -43,47 +43,9 @@ const lg = async (req, res) => {
 };
 
 
-//login2
-const login2=async(req,res)=>
-{
-    let MobileNo=req.body.MobileNo
-    const match=await service.login2(MobileNo)
-    if(match.length==0)
-    {
-        res.send("Mobile already exist")
-               
-    }
-    else
-    {
-        const password=match[0].Enter_Password
-
-        const pwmatch=await bcrypt.compare(req.body.Enter_Password,password)
-        if(pwmatch)
-        {
-            res.send
-            (
-                {
-                    code:200,
-                    msg:"login success"
-                }
-            )
-        }
-        else
-        {
-        res.send
-        ( 
-           {
-            code:200,
-            msg:"password incorrect"
-           }
-        )
-        }
-    }
-}
-
 
 //lg3
-const lg3 = async(req,res)=>
+const lg2 = async(req,res)=>
 {
     try{
     
@@ -144,6 +106,5 @@ const lg3 = async(req,res)=>
 module.exports=
 {
     lg,
-    login2,
-    lg3
+    lg2
 }
