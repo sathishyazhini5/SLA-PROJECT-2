@@ -2,34 +2,34 @@ const mongoose = require('mongoose')
 
 const enquirySchema = new mongoose.Schema({
     Student_Name:{
-        type:string
+        type:String
     },
     MobileNo:{
-        type:string
+        type:String
     },
     Email:{
-        type:string
+        type:String
     },
     College:{
         type:String
     },
     Qualification:{
-        type:string
+        type:String
     },
     Year_Of_Passed:{
-        type:string
+        type:String
     },
     Stream_enquiry:{
-        type:string
+        type:String
     },
     Mode:{
-        type:string
+        type:String
     },
     Referred_By:{
-        type:string
+        type:String
     },
     location:{
-        type:string
+        type:String
     }
 })
 

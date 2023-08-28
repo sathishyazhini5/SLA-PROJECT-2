@@ -1,31 +1,36 @@
 const mongoose = require('mongoose')
 
 const enrollmentSchema = new mongoose.Schema({
+    Student_ID:{
+        type:String
+    },
     Student_Name:{
-        type:string
+        type:String
     },
     Batch:{
-        type:string
+        type:String
     },
     Branch:{
-        type:string
+        type:String
     },
     Stream:{
-        type:string
+        type:String
     },
     Batch_start_Date:{
-        type:string
+        type:String
     },
     Batch_Timing:{
-        type:string
+        type:String
     },
     Course_fee:{
-        type:string
+        type:String
     },
     Promo_Code:{
-        type:string
+        type:String
     },
     Discount_fee:{
-        type:string
+        type:String
     }
 })
+
+module.exports=mongoose.model('enrollment',enrollmentSchema,'enrollment')

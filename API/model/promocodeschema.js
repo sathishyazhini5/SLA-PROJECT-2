@@ -11,9 +11,12 @@ const promocodeSchema = new mongoose.Schema({
         type:String
     },
     Startdate:{
-        type:Date
+        type:String
     },
     Enddate:{
         type:String
     }
 })
+
+
+module.exports= mongoose.model('promo',promocodeSchema,'promo')

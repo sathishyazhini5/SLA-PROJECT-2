@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const managebranchSchema = new mongoose.Schema({
     BranchName:{
-        type:string
+        type:String
     }
 })
 
