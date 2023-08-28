@@ -2,28 +2,28 @@ const mongoose = require('mongoose')
 
 const feeSchema = new mongoose.Schema({
     Student_Name:{
-        type:string
+        type:String
     },
     Batch:{
-        type:string
+        type:String
     },
     Stream:{
-        type:string
+        type:String
     },
     Start_Date:{
-        type:string
+        type:String
     },
     Timing:{
-        type:string
+        type:String
     },
     Course_fee:{
-        type:string
+        type:String
     },
     Promo_Code:{
-        type:string
+        type:String
     },
     Discount_fee:{
-        type:string
+        type:String
     },
     Paid_Amount:{
         type:Number
@@ -32,3 +32,5 @@ const feeSchema = new mongoose.Schema({
         type:Number
     }
 })
+
+module.exports= mongoose.model('fees',feeSchema,'fees')

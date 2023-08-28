@@ -8,6 +8,7 @@ const branch_functions = require('../controller/managebranch/index')
 const promo_functions = require('../controller/promocode/index')
 const enq_functions = require('../controller/enquiry/index')
 const enroll_functions = require('../controller/enrollment/index')
+const fee_functions = require('../controller/fees/index')
 
 let routes = (app) => {
 
@@ -38,6 +39,13 @@ let routes = (app) => {
   //enrollment
   router.post('/saveenroll',enroll_functions.enrollsave)
   router.post('/getenroll',enroll_functions.getallenroll)
+
+  //fee
+  router.post('/savefee',fee_functions.savefee)
+  router.post('/getfee',fee_functions.getfee)
+
+
+
 
   app.use("/api", router);
 };
