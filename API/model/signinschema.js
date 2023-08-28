@@ -4,10 +4,7 @@ const signinSchema = new mongoose.Schema({
     Mobileno:{
         type:Number
     },
-    Password:{
-        type:String
-    },
-    Forget_Password:{
+    Enter_Password:{
         type:String
     }
 })
