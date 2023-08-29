@@ -2,37 +2,29 @@ const { response } = require('express')
 const service = require('./service')
 
 //saveffe
-const savefee = async(req,res)=>
+const savefee = async (req, res) => 
 {
-    try{
+    try {
 
-        const sf = await service.fee(req.body)
-        if(sf)
+        const feedata = req.body;
+        const savedfee = await service.fee(feedata);
+    
+        if (savedfee) 
         {
-            res.send({
-                code:200,
-                status:true,
-                message:'Fees saved Successfully',
-                response:sf
-            })
+            res.status(201).json(savedfee);
+        } 
+        else 
+        {         
+            res.status(400).json({ message: 'Not a Student' });
         }
-        else
-        {
-            res.send({
-                code:400,
-                status:false,
-                message:'Not a Student'
-            })
-        }
-    }catch(error)
+
+    } catch (error)
     {
-        res.send({
-            code:400,
-            status:false,
-            message:'Something went wrong!!!'
-        })
+        res.status(500).json({ message: 'Internal server error.' });
     }
+  
 }
+
 
 //getfee
 const getfee = async(req,res)=>

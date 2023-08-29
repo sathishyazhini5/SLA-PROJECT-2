@@ -19,13 +19,16 @@ const feeSchema = new mongoose.Schema({
     Timing:{
         type:String
     },
-    Course_fee:{
+    Original_Course_fee:{
         type:String
     },
     Promo_Code:{
         type:String
     },
     Discount_fee:{
+        type:String
+    },
+    Course_fee:{
         type:String
     },
     Paid_Amount:{

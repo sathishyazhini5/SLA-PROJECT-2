@@ -1,5 +1,7 @@
 const feeSchema = require('../../model/feeschema')
 const enrollstudents = require('../../model/enrollmentschema')
+const streamModel = require('../../model/streamschema')
+const promoModel = require('../../model/promocodeschema')
 
 //savefee
 const fee = async(data)=>
@@ -15,6 +17,36 @@ const fee = async(data)=>
         }
         else
         {
+
+            const stream = await streamModel.findOne({StreamName:data.Stream})
+            if(!stream)
+            {
+                throw new Error("Stream Not Found")
+            }
+            const coursefee = stream.Stream_fee
+
+            const promo = await promoModel.findOne({PromoName:data.Promo_Code})
+            if(promo)
+            {
+                const discount = parseInt(promo.Discount)
+
+                const discountedfee = (discount/100)  *  coursefee;
+                const discountedcoursefee = coursefee-discountedfee
+
+                data.Original_Course_fee = coursefee;
+                data.Discount_fee = discountedfee.toFixed(2)
+                data.Course_fee = discountedcoursefee;        
+            }
+            else
+            {
+                data.Original_Course_fee = coursefee;
+                data.Discount_fee = "0.00"
+                data.Course_fee = coursefee; 
+            }
+
+            const paidamount = data.Paid_Amount
+            const balanceamount = coursefee - paidamount
+            data.Pending_Amount = balanceamount
 
             const newfee = new feeSchema(data)
             const savefee = await newfee.save()

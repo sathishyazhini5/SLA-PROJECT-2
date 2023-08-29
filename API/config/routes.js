@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("./auth");
 
-const reg_functions = require('../controller/register/index')
+const reg_functions = require('../controller/Admin_register/index')
 const login_functions = require('../controller/login/index')
 const branch_functions = require('../controller/managebranch/index')
 const promo_functions = require('../controller/promocode/index')
@@ -17,19 +17,19 @@ let routes = (app) => {
     res.send("Route hit")
   }); 
 
-  //reg
+  //Adminreg
   router.post('/reg',reg_functions.reg)
   router.post('/regagg',reg_functions.regagg)
 
-  //login
+  //Adminlogin
   router.post('/login',login_functions.lg)
   router.post('/login2',login_functions.lg2)
 
-  //save-branch
+  //Admin-save-branch
   router.post('/savebranch',branch_functions.savebranch)
   router.post('/getbranch',branch_functions.allbranch)
 
-  //promocode
+  //Admin-promocode
   router.post('/savepromo',promo_functions.savepromo)
   router.post('/getpromo',promo_functions.getpromo)
   
@@ -51,7 +51,7 @@ let routes = (app) => {
   router.post('/savefee',fee_functions.savefee)
   router.post('/getfee',fee_functions.getfee)
 
-  //stream
+  //Admin-stream
   router.post('/streamsave',stream_functions.streamsave)
 
 

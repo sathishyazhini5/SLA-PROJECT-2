@@ -1,4 +1,4 @@
-const registerschema = require('../../model/regschema')
+const registerschema = require('../../model/adminschema')
 const validator = require('email-validator')
 
 //register user without repeatation of mob_no

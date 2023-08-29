@@ -32,11 +32,13 @@ const registerstudent = async(data)=>
                 const discount_fee = (discount_percentage/100) * coursefee 
                 const coursefee_afterdiscount = coursefee - discount_fee
 
+                data.Original_Course_fee = coursefee
                 data.Course_fee = coursefee_afterdiscount
                 data.Discount_fee = discount_fee.toFixed(2);
             }
             else
             {
+                data.Original_Course_fee = coursefee
                 data.Course_fee = coursefee
                 data.Discount_fee = "0.00"
             }
