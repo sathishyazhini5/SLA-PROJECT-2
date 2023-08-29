@@ -27,14 +27,26 @@ const registerstudent = async(data)=>
             const promo = await promoModel.findOne({PromoName:data.Promo_Code})
             if(promo)
             {
-                const coursefee = stream.Stream_fee
-                const discount_percentage = parseInt(promo.Discount)
-                const discount_fee = (discount_percentage/100) * coursefee 
-                const coursefee_afterdiscount = coursefee - discount_fee
+                const currentDate = new Date();
+                const promoEndDate = new Date(promo.Enddate);
 
-                data.Original_Course_fee = coursefee
-                data.Course_fee = coursefee_afterdiscount
-                data.Discount_fee = discount_fee.toFixed(2);
+                if (promoEndDate >= currentDate)
+                {
+                    const coursefee = stream.Stream_fee
+                    const discount_percentage = parseInt(promo.Discount)
+                    const discount_fee = (discount_percentage/100) * coursefee 
+                    const coursefee_afterdiscount = coursefee - discount_fee
+
+                    data.Original_Course_fee = coursefee
+                    data.Course_fee = coursefee_afterdiscount
+                    data.Discount_fee = discount_fee.toFixed(2);
+                }
+                else
+                {
+                    data.Original_Course_fee = coursefee
+                    data.Course_fee = coursefee
+                    data.Discount_fee = "0.00"
+                }
             }
             else
             {

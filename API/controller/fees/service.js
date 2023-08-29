@@ -28,14 +28,27 @@ const fee = async(data)=>
             const promo = await promoModel.findOne({PromoName:data.Promo_Code})
             if(promo)
             {
-                const discount = parseInt(promo.Discount)
+                const currentDate = new Date();
+                const promoEndDate = new Date(promo.Enddate);
 
-                const discountedfee = (discount/100)  *  coursefee;
-                const discountedcoursefee = coursefee-discountedfee
+                if (promoEndDate >= currentDate)
+                {
+                    const discount = parseInt(promo.Discount)
 
-                data.Original_Course_fee = coursefee;
-                data.Discount_fee = discountedfee.toFixed(2)
-                data.Course_fee = discountedcoursefee;        
+                    const discountedfee = (discount/100)  *  coursefee;
+                    const discountedcoursefee = coursefee-discountedfee
+
+                    data.Original_Course_fee = coursefee;
+                    data.Discount_fee = discountedfee.toFixed(2)
+                    data.Course_fee = discountedcoursefee;    
+                }
+                else
+                {
+                    data.Original_Course_fee = coursefee;
+                    data.Discount_fee = "0.00"
+                    data.Course_fee = coursefee; 
+                }
+                    
             }
             else
             {
