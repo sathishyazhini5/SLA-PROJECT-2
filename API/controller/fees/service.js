@@ -6,10 +6,10 @@ const fee = async(data)=>
 {
     try{
 
-        const s_name_in_enroll =  data.Student_Name
+        const s_id_in_enroll =  data.Student_ID
 
-        const enrollnamematch = await enrollstudents.findOne( { Student_Name: s_name_in_enroll } )
-        if(!enrollnamematch)
+        const enrollidmatch = await enrollstudents.findOne( { Student_ID: s_id_in_enroll } )
+        if(!enrollidmatch)
         {
             return false
         }

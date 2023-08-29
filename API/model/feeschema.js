@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 
 const feeSchema = new mongoose.Schema({
+    Student_ID:{
+        type:String
+    },
     Student_Name:{
         type:String
     },

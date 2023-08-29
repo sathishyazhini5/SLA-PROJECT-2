@@ -44,7 +44,7 @@ const lg = async (req, res) => {
 
 
 
-//lg3
+//lg2
 const lg2 = async(req,res)=>
 {
     try{
@@ -89,6 +89,7 @@ const lg2 = async(req,res)=>
     }
 
 }
+
 
 
 

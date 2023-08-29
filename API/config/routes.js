@@ -39,6 +39,7 @@ let routes = (app) => {
   //enrollment
   router.post('/saveenroll',enroll_functions.enrollsave)
   router.post('/getenroll',enroll_functions.getallenroll)
+  router.post('/combinedata',enroll_functions.combinedata)
 
   //fee
   router.post('/savefee',fee_functions.savefee)

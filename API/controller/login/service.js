@@ -14,6 +14,7 @@ const login2 = async(data)=>
 }
 
 
+
 module.exports=
 {
     login,

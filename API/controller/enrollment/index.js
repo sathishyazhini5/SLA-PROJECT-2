@@ -36,8 +36,45 @@ const getallenroll = async(req,res)=>
     })
 }
 
+
+//combine data
+const combinedata  = async(req,res)=>
+{
+    try{
+
+        const id = req.body.Student_ID
+        const details = await service.combinedata({Student_ID:id})
+        if(details)
+        {
+            res.send({
+                code:200,
+                status:true,
+                message:'student Details',
+                response: details
+            })
+        }
+        else
+        {
+            res.send({
+                code:400,
+                status:false,
+                message:'student details NOT found'
+            })
+        }
+
+    }catch(error)
+    {
+        res.send({
+            code:400,
+            status:false,
+            message:'Something went wrong'
+        })
+    }
+}
+
 module.exports=
 {
     enrollsave,
-    getallenroll
+    getallenroll,
+    combinedata
 }

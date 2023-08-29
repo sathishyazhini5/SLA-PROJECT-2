@@ -1,4 +1,5 @@
 const enrollSchema = require('../../model/enrollmentschema')
+const feeModel = require('../../model/feeschema')
 
 //save enroll
 const enrollsave = async(data)=>
@@ -34,9 +35,44 @@ const getenroll = async(data)=>
     }
 }
 
+//getby student_id
+const combinedata = async(data)=>
+{
+    try
+    {
+        const enrollsid = await enrollSchema.findOne({Student_ID:data.Student_ID})
+
+        const feesid = await feeModel.findOne({Student_ID:data.Student_ID})
+
+        if(enrollsid&&feesid)
+        {
+            const cb = {
+                Student_ID: enrollsid.Student_ID,
+                Student_Name: enrollsid.Student_Name,
+                Batch: enrollsid.Batch,
+                Branch: enrollsid.Branch,
+                Stream: enrollsid.Stream,
+                Batch_Start_Date: enrollsid.Batch_Start_Date,
+                Batch_Timing: enrollsid.Batch_Timing,
+                Course_fee: enrollsid.Course_fee,
+                Promo_Code: enrollsid.Promo_Code,
+                Discount_fee: enrollsid.Discount_fee,
+                Paid_Amount: feesid.Paid_Amount,
+                Pending_Amount: feesid.Pending_Amount
+            }
+
+            return cb
+        }
+
+    }catch(error)
+    {
+        return false
+    }
+}
 
 module.exports=
 {
     enrollsave,
-    getenroll
+    getenroll,
+    combinedata
 }
