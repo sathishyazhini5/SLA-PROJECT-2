@@ -9,6 +9,7 @@ const promo_functions = require('../controller/promocode/index')
 const enq_functions = require('../controller/enquiry/index')
 const enroll_functions = require('../controller/enrollment/index')
 const fee_functions = require('../controller/fees/index')
+const stream_functions = require('../controller/stream/index')
 
 let routes = (app) => {
 
@@ -41,11 +42,14 @@ let routes = (app) => {
   router.post('/getenroll',enroll_functions.getallenroll)
   router.post('/combinedata',enroll_functions.combinedata)
 
+  router.post('/update',enroll_functions.upt)
+
   //fee
   router.post('/savefee',fee_functions.savefee)
   router.post('/getfee',fee_functions.getfee)
 
-
+  //stream
+  router.post('/streamsave',stream_functions.streamsave)
 
 
   app.use("/api", router);

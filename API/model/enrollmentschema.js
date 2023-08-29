@@ -7,6 +7,12 @@ const enrollmentSchema = new mongoose.Schema({
     Student_Name:{
         type:String
     },
+    MobileNo:{
+        type:String
+    },
+    EmailID:{
+        type:String
+    },
     Batch:{
         type:String
     },

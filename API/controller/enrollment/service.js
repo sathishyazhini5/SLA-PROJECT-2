@@ -6,13 +6,30 @@ const enrollsave = async(data)=>
 {
     try{
 
-        const count = await enrollSchema.countDocuments()
+        const exis = await enrollSchema.findOne({MobileNo:data.MobileNo})
+        if(exis)
+        {
+            return false
+        }
+        else
+        {
+            const count = await enrollSchema.countDocuments()
 
-        data.Student_ID = 'SLA'+ data.Batch  +  data.Stream +  (count+1)
+            data.Student_ID = 'SLA'+ data.Batch  +  data.Stream +  (count+1)
 
-        const newenroll = new enrollSchema(data)
-        const saveenroll = await newenroll.save()
-        return saveenroll
+            if(data.Stream=='FS')
+            {
+                data.Course_fee=20000
+            }
+            if(data.Stream=='BD')
+            {
+                data.Course_fee=15000
+            }
+
+            const newenroll = new enrollSchema(data)
+            const saveenroll = await newenroll.save()
+            return saveenroll
+        }
 
     }catch(error)
     {
@@ -70,9 +87,24 @@ const combinedata = async(data)=>
     }
 }
 
+//update all enrollment details by student_id
+const updatestudentenroll = async(data)=>
+{
+    try{
+
+        const upt = await enrollSchema.findOneAndUpdate({MobileNo:data.MobileNo},{$set:{Student_ID:data.Student_ID,Batch:data.Branch,Branch:data.Branch,Stream:data.Stream,Batch_start_Date:data.Batch_Start_Date,Batch_Timing:data.Batch_Timing,Course_fee:data.Course_fee,Promo_Code:data.Promo_Code,Discount_fee:data.Discount_fee}})
+        return upt
+
+    }catch(error)
+    {
+        return false
+    }
+}
+
 module.exports=
 {
     enrollsave,
     getenroll,
-    combinedata
+    combinedata,
+    updatestudentenroll
 }

@@ -1,5 +1,7 @@
 const { response } = require('express')
 const service = require('./service')
+const enrollSchema = require('../../model/enrollmentschema')
+
 
 //save-enroll
 const enrollsave = async(req,res)=>
@@ -7,13 +9,25 @@ const enrollsave = async(req,res)=>
     try{
 
         const en = await service.enrollsave(req.body)
-        res.send({
-            code:200,
-            status:true,
-            message:'Enrollement saved successfully',
-            response:en
-        })
-
+        if(en)
+        {
+            res.send({
+                code:200,
+                status:true,
+                message:'Enrollement saved successfully',
+                response:en
+            })
+    
+        }
+        else
+        {
+            res.send({
+                code:400,
+                status:false,
+                message:'MobileNumber Already exist'
+            })
+        }
+        
     }catch(error)
     {
         res.send({
@@ -72,9 +86,38 @@ const combinedata  = async(req,res)=>
     }
 }
 
+//updatestudent
+const upt = async(req,res)=>
+{
+    try{
+
+        const count = await enrollSchema.countDocuments()
+        req.body.Student_ID = 'SLA' + req.body.Batch + req.body.Stream + (count+1)
+       
+
+
+        const update = await service.updatestudentenroll(req.body)
+        res.send({
+            code:200,
+            status:true,
+            message:'Updated successfully',
+            response:update
+        })
+
+    }catch(error)
+    {
+        res.send({
+            code:400,
+            status:false,
+            message:'Something went wrong!!!'
+        })
+    }
+}
+
 module.exports=
 {
     enrollsave,
     getallenroll,
-    combinedata
+    combinedata,
+    upt
 }
