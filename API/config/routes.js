@@ -38,11 +38,14 @@ let routes = (app) => {
   router.post('/getenq',enq_functions.getenq)
 
   //enrollment
-  router.post('/saveenroll',enroll_functions.enrollsave)
+ 
   router.post('/getenroll',enroll_functions.getallenroll)
   router.post('/combinedata',enroll_functions.combinedata)
 
   router.post('/update',enroll_functions.upt)
+
+  router.post('/reg',enroll_functions.reg)
+  router.post('/save',enroll_functions.saveStudents)
 
   //fee
   router.post('/savefee',fee_functions.savefee)

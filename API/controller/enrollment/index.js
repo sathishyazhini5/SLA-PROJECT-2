@@ -3,40 +3,57 @@ const service = require('./service')
 const enrollSchema = require('../../model/enrollmentschema')
 
 
-//save-enroll
-const enrollsave = async(req,res)=>
+//reg
+const reg = async(req,res)=>
 {
     try{
 
-        const en = await service.enrollsave(req.body)
-        if(en)
+        const enrolldata = req.body
+        const reg = await service.registerstudent(enrolldata)
+        if(reg)
         {
             res.send({
                 code:200,
                 status:true,
-                message:'Enrollement saved successfully',
-                response:en
+                message:'Registered successfully',
+                response: reg
             })
-    
         }
         else
         {
             res.send({
                 code:400,
                 status:false,
-                message:'MobileNumber Already exist'
+                message:'MobileNo aldready exist'
             })
         }
-        
+
     }catch(error)
     {
         res.send({
             code:400,
-            status: false,
+            status:false,
             message:'Something went wrong!!!'
         })
     }
 }
+
+//reg
+const saveStudents = async (req, res) => {
+    try {
+      const enrollmentData = req.body;
+      const savedEnrollment = await service.registerstudent(enrollmentData);
+  
+      if (savedEnrollment) {
+        res.status(201).json(savedEnrollment);
+      } else {
+        
+        res.status(400).json({ message: 'Mobile number already exists.' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error.' });
+    }
+  };
 
 //getenroll.
 const getallenroll = async(req,res)=>
@@ -116,8 +133,10 @@ const upt = async(req,res)=>
 
 module.exports=
 {
-    enrollsave,
+    reg,
+    saveStudents,
     getallenroll,
     combinedata,
     upt
+    
 }

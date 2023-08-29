@@ -1,9 +1,11 @@
 const enrollSchema = require('../../model/enrollmentschema')
 const feeModel = require('../../model/feeschema')
 const promoModel = require('../../model/promocodeschema')
+const streamModel = require('../../model/streamschema')
 
-//save enroll
-const enrollsave = async(data)=>
+
+//saveenrollment-updated requirements
+const registerstudent = async(data)=>
 {
     try{
 
@@ -14,39 +16,41 @@ const enrollsave = async(data)=>
         }
         else
         {
+            const stream = await streamModel.findOne({StreamName:data.Stream})
+            if(!stream)
+            {
+                throw new Error("Stream Not Found")
+            }
+
+            const coursefee = stream.Stream_fee
+
+            const promo = await promoModel.findOne({PromoName:data.Promo_Code})
+            if(promo)
+            {
+                const coursefee = stream.Stream_fee
+                const discount_percentage = parseInt(promo.Discount)
+                const discount_fee = (discount_percentage/100) * coursefee 
+                const coursefee_afterdiscount = coursefee - discount_fee
+
+                data.Course_fee = coursefee_afterdiscount
+                data.Discount_fee = discount_fee.toFixed(2);
+            }
+            else
+            {
+                data.Course_fee = coursefee
+                data.Discount_fee = "0.00"
+            }
+                
+            
+
             const count = await enrollSchema.countDocuments()
+            data.Student_ID = 'SLA' + data.Batch + data.Stream + (count+1)
 
-            data.Student_ID = 'SLA'+ data.Batch  +  data.Stream +  (count+1)
-
-            if(data.Stream=='FS')
-            {
-                data.Course_fee=20000
-            }
-            if(data.Stream=='BD')
-            {
-                data.Course_fee=15000
-            }
-
-            const findpromo = data.Promo_Code
-            const promo = await promoModel.findOne({PromoName:findpromo})
-                if(!promo)
-                {
-                    return false
-                }
-                else
-                {
-                    /**const getdisc = await promoModel.find({PromoName:data.Promo_Code},'Discount_fee')
-                    
-                    data.Discount_fee = getdisc.Discount_fee
-                    //data.Discount_fee = 10000 */
-                    data.Discount_fee = promo.Discount_fee;
-                    
-                }
-
-
-            const newenroll = new enrollSchema(data)
-            const saveenroll = await newenroll.save()
-            return saveenroll
+            const newstudent = new enrollSchema(data)
+            const savestudent = await newstudent.save()
+            return savestudent
+            
+        
         }
 
     }catch(error)
@@ -121,8 +125,9 @@ const updatestudentenroll = async(data)=>
 
 module.exports=
 {
-    enrollsave,
+    registerstudent,
     getenroll,
     combinedata,
-    updatestudentenroll
+    updatestudentenroll,
+
 }
