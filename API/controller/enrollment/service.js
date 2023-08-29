@@ -1,5 +1,6 @@
 const enrollSchema = require('../../model/enrollmentschema')
 const feeModel = require('../../model/feeschema')
+const promoModel = require('../../model/promocodeschema')
 
 //save enroll
 const enrollsave = async(data)=>
@@ -25,6 +26,23 @@ const enrollsave = async(data)=>
             {
                 data.Course_fee=15000
             }
+
+            const findpromo = data.Promo_Code
+            const promo = await promoModel.findOne({PromoName:findpromo})
+                if(!promo)
+                {
+                    return false
+                }
+                else
+                {
+                    /**const getdisc = await promoModel.find({PromoName:data.Promo_Code},'Discount_fee')
+                    
+                    data.Discount_fee = getdisc.Discount_fee
+                    //data.Discount_fee = 10000 */
+                    data.Discount_fee = promo.Discount_fee;
+                    
+                }
+
 
             const newenroll = new enrollSchema(data)
             const saveenroll = await newenroll.save()
