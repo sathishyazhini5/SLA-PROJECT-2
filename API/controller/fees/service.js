@@ -9,8 +9,9 @@ const fee = async(data)=>
     try{
 
         const s_id_in_enroll =  data.Student_ID
+        const s_name_in_enroll = data.Student_Name
 
-        const enrollidmatch = await enrollstudents.findOne( { Student_ID: s_id_in_enroll } )
+        const enrollidmatch = await enrollstudents.findOne( { Student_ID: s_id_in_enroll,Student_Name:s_name_in_enroll } )
         if(!enrollidmatch)
         {
             return false
@@ -60,6 +61,10 @@ const fee = async(data)=>
             const paidamount = data.Paid_Amount
             const balanceamount = coursefee - paidamount
             data.Pending_Amount = balanceamount
+            data.Start_Date = enrollidmatch.Batch_start_Date
+            data.Timing = enrollidmatch.Batch_Timing
+            data.Batch = enrollidmatch.Batch
+            data.Stream = enrollidmatch.Stream
 
             const newfee = new feeSchema(data)
             const savefee = await newfee.save()

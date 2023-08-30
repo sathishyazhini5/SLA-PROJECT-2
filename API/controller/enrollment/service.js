@@ -32,6 +32,7 @@ const registerstudent = async(data)=>
 
                 if (promoEndDate >= currentDate)
                 {
+                    
                     const coursefee = stream.Stream_fee
                     const discount_percentage = parseInt(promo.Discount)
                     const discount_fee = (discount_percentage/100) * coursefee 
@@ -40,6 +41,7 @@ const registerstudent = async(data)=>
                     data.Original_Course_fee = coursefee
                     data.Course_fee = coursefee_afterdiscount
                     data.Discount_fee = discount_fee.toFixed(2);
+                    
                 }
                 else
                 {
