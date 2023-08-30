@@ -16,6 +16,7 @@ const fee = async(data)=>
         {
             return false
         }
+        
         else
         {
 
@@ -25,6 +26,7 @@ const fee = async(data)=>
                 throw new Error("Stream Not Found")
             }
             const coursefee = stream.Stream_fee
+   
 
             const promo = await promoModel.findOne({PromoName:data.Promo_Code})
             if(promo)
@@ -35,13 +37,13 @@ const fee = async(data)=>
                 if (promoEndDate >= currentDate)
                 {
                     const discount = parseInt(promo.Discount)
-
                     const discountedfee = (discount/100)  *  coursefee;
                     const discountedcoursefee = coursefee-discountedfee
 
                     data.Original_Course_fee = coursefee;
                     data.Discount_fee = discountedfee.toFixed(2)
                     data.Course_fee = discountedcoursefee;  
+                    
                     const paidamount = data.Paid_Amount
                     const pendingamount = discountedcoursefee - paidamount
                     data.Pending_Amount = pendingamount  
@@ -64,11 +66,13 @@ const fee = async(data)=>
                 data.Course_fee = coursefee; 
             }
 
-            const paidamount = data.Paid_Amount
+            /**const paidamount = data.Paid_Amount
             const balanceamount = coursefee - paidamount
-            data.Pending_Amount = balanceamount
+            data.Pending_Amount = balanceamount */
+
             data.Start_Date = enrollidmatch.Batch_start_Date
             data.Timing = enrollidmatch.Batch_Timing
+
             data.Batch = enrollidmatch.Batch
             data.Stream = enrollidmatch.Stream
 
@@ -77,6 +81,7 @@ const fee = async(data)=>
             return savefee
 
         }
+    
 
         
     }catch(error)
