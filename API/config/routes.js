@@ -50,6 +50,7 @@ let routes = (app) => {
   //fee
   router.post('/savefee',fee_functions.savefee)
   router.post('/getfee',fee_functions.getfee)
+  router.post('/updatefee',fee_functions.updatefee)
 
   //Admin-stream
   router.post('/streamsave',stream_functions.streamsave)

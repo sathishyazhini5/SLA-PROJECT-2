@@ -49,8 +49,32 @@ const getfee = async(req,res)=>
     }
 }
 
+//updatefee
+const updatefee = async(req,res)=>
+{
+    try{
+
+        const upt = await service.updatependingamount(req.body)
+        res.send({
+            code:200,
+            status:true,
+            message:'Fee Updated Successfully',
+            response:upt
+        })
+
+    }catch(error)
+    {
+        res.send({
+            code:400,
+            status:false,
+            message:'Something went wrong!!!'
+        })
+    }
+}
+
 module.exports=
 {
     savefee,
-    getfee
+    getfee,
+    updatefee
 }

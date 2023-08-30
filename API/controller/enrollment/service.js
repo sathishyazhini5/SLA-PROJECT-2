@@ -24,37 +24,44 @@ const registerstudent = async(data)=>
 
             const coursefee = stream.Stream_fee
 
+            let discountfee = 0
+            let coursefeeafterdiscount = coursefee
+
             const promo = await promoModel.findOne({PromoName:data.Promo_Code})
+
             if(promo)
             {
                 const currentDate = new Date();
                 const promoEndDate = new Date(promo.Enddate);
 
-                if (promoEndDate >= currentDate)
-                {
-                    
-                    const coursefee = stream.Stream_fee
-                    const discount_percentage = parseInt(promo.Discount)
-                    const discount_fee = (discount_percentage/100) * coursefee 
-                    const coursefee_afterdiscount = coursefee - discount_fee
+            
+                        if (promoEndDate >= currentDate)
+                        {
+                            
+                            const discount_percentage = parseInt(promo.Discount)
+                            discountfee = (discount_percentage/100) * coursefee 
+                            coursefeeafterdiscount = coursefee - discountfee
 
-                    data.Original_Course_fee = coursefee
-                    data.Course_fee = coursefee_afterdiscount
-                    data.Discount_fee = discount_fee.toFixed(2);
-                    
-                }
-                else
-                {
-                    data.Original_Course_fee = coursefee
-                    data.Course_fee = coursefee
-                    data.Discount_fee = "0.00"
-                }
+                            data.Original_Course_fee = coursefee
+                            data.Course_fee = coursefeeafterdiscount
+                            data.Discount_fee = discountfee.toFixed(2);
+                            
+                            
+                        }
+                        else
+                        {
+                            data.Original_Course_fee = coursefee
+                            data.Course_fee = coursefee
+                            data.Discount_fee = "0.00"
+                            
+                        }
             }
             else
             {
                 data.Original_Course_fee = coursefee
                 data.Course_fee = coursefee
                 data.Discount_fee = "0.00"
+               
             }
                 
             
@@ -65,7 +72,6 @@ const registerstudent = async(data)=>
             const newstudent = new enrollSchema(data)
             const savestudent = await newstudent.save()
             return savestudent
-            
         
         }
 

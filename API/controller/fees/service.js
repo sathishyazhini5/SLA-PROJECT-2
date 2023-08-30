@@ -41,13 +41,19 @@ const fee = async(data)=>
 
                     data.Original_Course_fee = coursefee;
                     data.Discount_fee = discountedfee.toFixed(2)
-                    data.Course_fee = discountedcoursefee;    
+                    data.Course_fee = discountedcoursefee;  
+                    const paidamount = data.Paid_Amount
+                    const pendingamount = discountedcoursefee - paidamount
+                    data.Pending_Amount = pendingamount  
                 }
                 else
                 {
                     data.Original_Course_fee = coursefee;
                     data.Discount_fee = "0.00"
                     data.Course_fee = coursefee; 
+                    const paidamount = data.Paid_Amount
+                    const pendingamount = coursefee - paidamount
+                    data.Pending_Amount = pendingamount
                 }
                     
             }
@@ -92,8 +98,39 @@ const allfee = async(data)=>
     }
 }
 
+//update pending amount
+const updatependingamount = async(data)=>
+{
+    try{
+
+        const matchfee = await feeSchema.findOne({Student_ID:data.Student_ID})
+        const amounttopay = matchfee.Pending_Amount
+        data.Course_fee = amounttopay 
+
+        /**const orgfee = matchfee.Original_Course_fee
+        data.Original_Course_fee = orgfee
+        const coursefee = matchfee.Course_fee
+        data.Course_fee = coursefee
+         */
+        
+        const nowpaidamount = data.Paid_Amount
+        data.Pending_Amount = amounttopay - nowpaidamount
+        const upt = await feeSchema.updateOne({Student_ID:data.Student_ID},{$set:{Paid_Amount:data.Paid_Amount}})
+        return upt
+    
+
+    }catch(error)
+    {
+        return false
+    }
+}
+
+
+
+
 module.exports=
 {
     fee,
-    allfee
+    allfee,
+    updatependingamount
 }
