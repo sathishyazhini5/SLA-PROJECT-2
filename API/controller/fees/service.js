@@ -109,18 +109,20 @@ const updatependingamount = async(data)=>
     try{
 
         const matchfee = await feeSchema.findOne({Student_ID:data.Student_ID})
-        const amounttopay = matchfee.Pending_Amount
-        data.Course_fee = amounttopay 
-
-        /**const orgfee = matchfee.Original_Course_fee
-        data.Original_Course_fee = orgfee
-        const coursefee = matchfee.Course_fee
-        data.Course_fee = coursefee
-         */
         
+        if(!matchfee)
+        {
+            throw new Error("Student Not Found")
+        }
+
+        const amounttopay = matchfee.Pending_Amount
+
         const nowpaidamount = data.Paid_Amount
-        data.Pending_Amount = amounttopay - nowpaidamount
-        const upt = await feeSchema.updateOne({Student_ID:data.Student_ID},{$set:{Paid_Amount:data.Paid_Amount}})
+
+        const pending = amounttopay - nowpaidamount
+        
+        const upt = await feeSchema.updateOne({Student_ID:data.Student_ID},{$set:{Pending_Amount:pending}})
+        
         return upt
     
 

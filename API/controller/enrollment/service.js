@@ -145,11 +145,25 @@ const updatestudentenroll = async(data)=>
     }
 }
 
+//display student details by stream
+const streamget = async(data)=>
+{
+    try
+    {
+        const get=await enrollSchema.find({Stream:data.Stream})
+        return get
+    }catch(error)
+    {
+        return false
+    }
+}
+
 module.exports=
 {
     registerstudent,
     getenroll,
     combinedata,
     updatestudentenroll,
+    streamget
 
 }

@@ -131,12 +131,32 @@ const upt = async(req,res)=>
     }
 }
 
+//stream get
+const sget=async(req,res)=>
+{
+    try{
+        const get=await service.streamget(req.body)
+        res.send({
+            code:200,
+            msg:get
+        })
+    }catch(error)
+    {
+    res.send({
+        code:400,
+        msg:false
+
+    })
+}
+}
+
 module.exports=
 {
     reg,
     saveStudents,
     getallenroll,
     combinedata,
-    upt
+    upt,
+    sget
     
 }

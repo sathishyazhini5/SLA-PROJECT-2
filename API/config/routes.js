@@ -41,8 +41,8 @@ let routes = (app) => {
   router.post('/save',enroll_functions.saveStudents)
   router.post('/getenroll',enroll_functions.getallenroll)
   router.post('/combinedata',enroll_functions.combinedata)
-
   router.post('/update',enroll_functions.upt)
+  router.post('/getbystream',enroll_functions.sget)
 
   router.post('/reg',enroll_functions.reg)
   

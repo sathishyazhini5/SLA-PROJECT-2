@@ -72,9 +72,12 @@ const updatefee = async(req,res)=>
     }
 }
 
+
+
 module.exports=
 {
     savefee,
     getfee,
-    updatefee
+    updatefee,
+    sget
 }
