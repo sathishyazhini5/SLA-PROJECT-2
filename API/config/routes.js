@@ -12,6 +12,8 @@ const fee_functions = require('../controller/fees/index')
 const stream_functions = require('../controller/stream/index')
 const stream2_functions = require('../controller/stream2/index')
 const placement_functions = require('../controller/placement/index')
+const taskassign_functions = require('../controller/taskassign/index')
+const studenttask_functions = require('../controller/studenttasks/index')
 
 let routes = (app) => {
 
@@ -61,6 +63,13 @@ let routes = (app) => {
 
   //Placement
   router.post('/saveplacement',placement_functions.saveplacement)
+
+  //Assigntask
+  router.post('/taskassign',taskassign_functions.savetask)
+
+  //StudentTask
+  router.post('/studenttask',studenttask_functions.studenttasksave)
+
 
   app.use("/api", router);
 };
