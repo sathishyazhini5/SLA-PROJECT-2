@@ -11,6 +11,7 @@ const enroll_functions = require('../controller/enrollment/index')
 const fee_functions = require('../controller/fees/index')
 const stream_functions = require('../controller/stream/index')
 const stream2_functions = require('../controller/stream2/index')
+const placement_functions = require('../controller/placement/index')
 
 let routes = (app) => {
 
@@ -58,6 +59,8 @@ let routes = (app) => {
   //Stream2
   router.post('/savestream',stream2_functions.savestrm)
 
+  //Placement
+  router.post('/saveplacement',placement_functions.saveplacement)
 
   app.use("/api", router);
 };
