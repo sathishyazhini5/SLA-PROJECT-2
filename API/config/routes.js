@@ -10,6 +10,7 @@ const enq_functions = require('../controller/enquiry/index')
 const enroll_functions = require('../controller/enrollment/index')
 const fee_functions = require('../controller/fees/index')
 const stream_functions = require('../controller/stream/index')
+const stream2_functions = require('../controller/stream2/index')
 
 let routes = (app) => {
 
@@ -54,6 +55,8 @@ let routes = (app) => {
 
   //Admin-stream
   router.post('/streamsave',stream_functions.streamsave)
+  //Stream2
+  router.post('/savestream',stream2_functions.savestrm)
 
 
   app.use("/api", router);

@@ -78,6 +78,5 @@ module.exports=
 {
     savefee,
     getfee,
-    updatefee,
-    sget
+    updatefee
 }

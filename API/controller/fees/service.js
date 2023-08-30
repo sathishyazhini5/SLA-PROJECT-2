@@ -121,7 +121,7 @@ const updatependingamount = async(data)=>
 
         const pending = amounttopay - nowpaidamount
         
-        const upt = await feeSchema.updateOne({Student_ID:data.Student_ID},{$set:{Pending_Amount:pending}})
+        const upt = await feeSchema.updateOne({Student_ID:data.Student_ID},{$set:{Paid_Amount:data.Paid_Amount,Pending_Amount:pending}})
         
         return upt
     
