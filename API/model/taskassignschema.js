@@ -6,7 +6,7 @@ const taskassignschema = new mongoose.Schema({
     To_Batch:String,
     Task_Description:String
 
-})
+}) 
 
 module.exports= mongoose.model('taskassign',taskassignschema,'taskassign')
 

@@ -55,6 +55,23 @@ const saveStudents = async (req, res) => {
     }
   };
 
+//reg
+const saveStudents2 = async (req, res) => {
+    try {
+      const enrollmentData = req.body;
+      const savedEnrollment = await service.registerstudentwithstream2(enrollmentData);
+  
+      if (savedEnrollment) {
+        res.status(201).json(savedEnrollment);
+      } else {
+        
+        res.status(400).json({ message: 'Mobile number already exists.' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error.' });
+    }
+  };
+
 //getenroll.
 const getallenroll = async(req,res)=>
 {
@@ -157,6 +174,7 @@ module.exports=
     getallenroll,
     combinedata,
     upt,
-    sget
+    sget,
+    saveStudents2
     
 }

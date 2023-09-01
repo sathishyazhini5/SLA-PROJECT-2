@@ -43,6 +43,7 @@ let routes = (app) => {
 
   //enrollment
   router.post('/save',enroll_functions.saveStudents)
+  router.post('/save2',enroll_functions.saveStudents2)
   router.post('/getenroll',enroll_functions.getallenroll)
   router.post('/combinedata',enroll_functions.combinedata)
   router.post('/update',enroll_functions.upt)
@@ -53,8 +54,10 @@ let routes = (app) => {
 
   //fee
   router.post('/savefee',fee_functions.savefee)
+  router.post('/savefee2',fee_functions.savefee2)
   router.post('/getfee',fee_functions.getfee)
   router.post('/updatefee',fee_functions.updatefee)
+  router.post('/updatefee2',fee_functions.updatefee2)
 
   //Admin-stream
   router.post('/streamsave',stream_functions.streamsave)

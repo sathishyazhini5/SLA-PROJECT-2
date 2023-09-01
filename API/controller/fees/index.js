@@ -72,11 +72,61 @@ const updatefee = async(req,res)=>
     }
 }
 
+//saveffee
+const savefee2 = async (req, res) => 
+{
+    try {
+
+        const feedata = req.body;
+        const savedfee = await service.fee2(feedata);
+    
+        if (savedfee) 
+        {
+            res.status(201).json(savedfee);
+        } 
+        else 
+        {         
+            res.status(400).json({ message: 'Not a Student' });
+        }
+
+    } catch (error)
+    {
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+  
+}
+
+//updatefee
+const updatefee2 = async(req,res)=>
+{
+    try{
+
+        const upt = await service.updatependingamount2(req.body)
+        res.send({
+            code:200,
+            status:true,
+            message:'Fee Updated Successfully',
+            response:upt
+        })
+
+    }catch(error)
+    {
+        res.send({
+            code:400,
+            status:false,
+            message:'Something went wrong!!!'
+        })
+    }
+}
+
+
 
 
 module.exports=
 {
     savefee,
     getfee,
-    updatefee
+    updatefee,
+    savefee2,
+    updatefee2
 }
